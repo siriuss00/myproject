@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Scoreboard</title>
+</head>
+<body>
+    <div style="margin-top: 100px" class="container">
+        <h3>Skor Listesi</h3>
+        <hr>
+
+        <form action="/add" method="post">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Skor Başlığı</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="title" placeholder="Skor giriniz...">
+                <br>
+                <button type="submit" class="btn btn-danger">EKLE</button>
+                <hr>
+              </div>
+        
+        </form>
+
+        {% if scores==[] %}
+            </div>
+            <div class="alert alert-warning" role="alert">
+            Hiç skor girilmemiş!
+            </div>
+        {% else %}
+        <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Yarışmacı Adı</th>
+                    
+                    <th scope="col">Skor Durum</th>
+                    <th scope="col">Skor Güncelle</th>
+                    <th scope="col">Sil</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for score in scores %}
+                  <tr>
+                    <th scope="row">{{score.id}}</th>
+                    <td>{{score.title}}</td>
+                    {% if score.complete==False %}
+                    <td>Tamamlanmadı</td>
+                    {% else %}
+                    <td>Tamamlandı</td>
+                    {% endif %}
+                    
+                    <td><a  href="/complete/{{score.id}}" class="btn btn-danger">Tamamla</a></td>
+                    <td><a  href="/delete/{{score.id}}" class="btn btn-danger">Sil</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+        {% endif %}
+
+        
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
